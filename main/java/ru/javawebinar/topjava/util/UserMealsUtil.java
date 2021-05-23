@@ -29,7 +29,31 @@ public class UserMealsUtil {
 
     public static List<UserMealWithExcess> filteredByCycles(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
         // TODO return filtered list with excess. Implement by cycles
-        return null;
+
+        // count total calories
+        int totalCaloriesPerDay = 0;
+        boolean excess = totalCaloriesPerDay > caloriesPerDay;
+        for (UserMeal meal : meals) {
+            while (!excess) {
+                if (timeUtil.isBetweenHalfOpen(meal.getDateTime(), startTime, endTime)) {
+                    totalCaloriesPerDay += meal.getCalories();
+                    excess = totalCaloriesPerDay > caloriesPerDay;
+                }
+            }
+        }
+
+        // collect to List<UserMealWithExcess>
+        List<UserMealWithExcess> result = new ArrayList();
+        TimeUtil timeUtil = new TimeUtil();
+        for (UserMeal meal : meals) {
+            if (timeUtil.isBetweenHalfOpen(meal.getDateTime(), startTime, endTime)) {
+                result.add(new UserMealWithExcess(meal.getDateTime(),
+                        meal.getDescription(),
+                        meal.getCalories(),
+                        excess))
+            }
+        }
+        return result;
     }
 
     public static List<UserMealWithExcess> filteredByStreams(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
