@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MealMemoryRepository {
-    private static List<Meal> mealList;
+    private static List<Meal> mealList = new ArrayList<>();
 
-    public MealMemoryRepository() {
-        mealList = new ArrayList<>();
+    static {
         mealList.add(new Meal(LocalDateTime.now(), "breakfast", 650));
         mealList.add(new Meal(LocalDateTime.now(), "dinner", 1400));
         mealList.add(new Meal(LocalDateTime.now(), "supper", 1000));

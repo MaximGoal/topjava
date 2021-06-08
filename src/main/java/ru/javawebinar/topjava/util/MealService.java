@@ -17,19 +17,17 @@ public class MealService {
         mealList.add(new Meal(dateTime, description, calories));
     }
 
-    public Meal read (String description) {
-        return mealList.stream()
-                .filter(m -> m.getDescription().equals(description))
-                .findFirst().orElse(null);
+    public Meal read (int id) {
+        return mealList.get(id);
     }
 
     public void delete (Meal meal) {
         mealList.remove(meal);
     }
 
-    public void update (Meal meal) {
+    public void update (int id, Meal meal) {
         Optional<Meal> removed = mealList.stream()
-                .filter(m -> m.getDateTime().equals(meal.getDateTime()))
+                .filter(m -> m.getDateTime().equals(mealList.get(id).getDateTime()))
                 .findFirst();
 
         if (removed.isPresent()) {
