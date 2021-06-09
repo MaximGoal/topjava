@@ -12,21 +12,41 @@
 </head>
 <body>
 
-<h3><a href="index.html">Home</a></h3>
+<h3><a href="/topjava/index.html">Home</a></h3>
 <hr/>
 <h1>Add new meal</h1>
 
 <form name="form_create" action="/topjava/meals/add" method="post">
-    <label>Description</label>
-    <input type="text" placeholder="Description" name="desc">
-    </br>
-    <label>DateTime</label>
-    <input type="text" placeholder="DateTime" name="dateTime">
-    </br>
-    <label>Calories</label>
-    <input type="text" placeholder="Calories" name="calories">
-    </br>
-    <input type="submit" value="Create">
+    <table>
+        <tbody>
+            <tr>
+                <td><label>Description</label></td>
+                <td><input type="text" placeholder="Description" name="desc"></td>
+            </tr>
+            <tr>
+                <td><label>DateTime</label></td>
+                <td><input type="text" placeholder="DateTime" name="dateTime"></td>
+            </tr>
+            <tr>
+                <td><label>Calories</label></td>
+                <td><input type="text" placeholder="Calories" name="calories"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Create"></td>
+            </tr>
+        </tbody>
+    </table>
+
+<%--    <label>Description</label>--%>
+<%--    <input type="text" placeholder="Description" name="desc">--%>
+<%--    </br>--%>
+<%--    <label>DateTime</label>--%>
+<%--    <input type="text" placeholder="DateTime" name="dateTime">--%>
+<%--    </br>--%>
+<%--    <label>Calories</label>--%>
+<%--    <input type="text" placeholder="Calories" name="calories">--%>
+<%--    </br>--%>
+<%--    <input type="submit" value="Create">--%>
 <%--    <button type="button">--%>
 <%--        Create--%>
 <%--    </button>--%>

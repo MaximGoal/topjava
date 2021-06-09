@@ -9,30 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class MealAddServlet extends HttpServlet {
-    private static final Logger logger = getLogger(MealAddServlet.class);
+public class MealDeleteServlet extends HttpServlet {
+    private static final Logger logger = getLogger(MealDeleteServlet.class);
     final MealService service = new MealMemService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.debug("redirect to meals/add GET");
-        getServletContext().getRequestDispatcher("/mealAdd.jsp").forward(req, resp);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id")) - 1;
+        service.delete(id);
 
-        service.add(LocalDateTime.parse(req.getParameter("dateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a")),
-                req.getParameter("desc"),
-                Integer.parseInt(req.getParameter("calories")));
         req.setAttribute("mealToList", service.getMealToList());
 
-        logger.debug("new meal saved");
+        logger.debug("meal deleted");
         getServletContext().getRequestDispatcher("/meals.jsp").forward(req, resp);
     }
 }
