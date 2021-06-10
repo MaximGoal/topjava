@@ -5,7 +5,6 @@ import ru.javawebinar.topjava.model.MealTo;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -33,4 +32,5 @@ public class MealMemoryRepository {
     public static int getMaxCaloriesPerDay() {
         return maxCaloriesPerDay;
     }
+
 }

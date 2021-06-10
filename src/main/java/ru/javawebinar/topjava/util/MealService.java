@@ -13,4 +13,5 @@ public interface MealService {
     void delete(int id);
     List<Meal> getMealList();
     List<MealTo> getMealToList();
+    int getLastId();
 }

@@ -24,7 +24,7 @@
 
 </form>
 
-<table style="margin-top: 10px" class="table" border="1" bordercolor="blue">
+<table style="margin-top: 10px" class="table" border="2" bordercolor="black">
     <thead class="thead-dark">
     <tr>
         <th scope="col">#</th>
@@ -40,16 +40,16 @@
         <tr>
             <c:choose>
             <c:when test="${item.isExcess()}">
-                    <td style="color: darkolivegreen">${item.getId()}</td>
-                    <td style="color: darkolivegreen">${item.getDescription()}</td>
-                    <td style="color: darkolivegreen">${item.getDateTime()}</td>
-                    <td style="color: darkolivegreen">${item.getCalories()}</td>
-            </c:when>
-            <c:otherwise>
                     <td style="color: darkred">${item.getId()}</td>
                     <td style="color: darkred">${item.getDescription()}</td>
                     <td style="color: darkred">${item.getDateTime()}</td>
                     <td style="color: darkred">${item.getCalories()}</td>
+            </c:when>
+            <c:otherwise>
+                    <td style="color: darkolivegreen">${item.getId()}</td>
+                    <td style="color: darkolivegreen">${item.getDescription()}</td>
+                    <td style="color: darkolivegreen">${item.getDateTime()}</td>
+                    <td style="color: darkolivegreen">${item.getCalories()}</td>
             </c:otherwise>
             </c:choose>
                     <td>

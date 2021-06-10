@@ -18,8 +18,13 @@ public class MealDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id")) - 1;
-        service.delete(id);
+        int id = Integer.parseInt(req.getParameter("id"));
+
+        if (id > service.getLastId())
+            logger.debug("meal id is not valid");
+        else
+            service.delete(id);
+
 
         req.setAttribute("mealToList", service.getMealToList());
 

@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.model.MealTo;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MealMemService implements MealService {
     private final List<Meal> mealList;
@@ -17,7 +18,14 @@ public class MealMemService implements MealService {
     }
 
     public void add (LocalDateTime dateTime, String description, int calories) {
-        mealList.add(new Meal(dateTime, description, calories));
+        Meal item = new Meal(dateTime, description, calories);
+        mealList.add(item);
+        mealToList.add(new MealTo(
+                item.getDateTime(),
+                item.getDescription(),
+                item.getCalories(),
+                new AtomicInteger(item.getId()),
+                MealsUtil.caloriesPerDayMap(mealList).get(item.getDate()) > MealMemoryRepository.getMaxCaloriesPerDay()));
     }
 
     public Meal read (int id) {
@@ -25,7 +33,8 @@ public class MealMemService implements MealService {
     }
 
     public void delete (int id) {
-        mealList.remove(mealList.get(id));
+        mealList.removeIf(meal -> meal.getId() == id);
+        mealToList.removeIf(meal -> meal.getId() == id);
     }
 
     public void update (int id, Meal meal) {
@@ -47,5 +56,9 @@ public class MealMemService implements MealService {
     @Override
     public List<MealTo> getMealToList() {
         return mealToList;
+    }
+
+    public int getLastId() {
+        return mealToList.get(mealToList.size()-1).getId();
     }
 }

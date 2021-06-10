@@ -27,7 +27,8 @@ public class MealAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        service.add(LocalDateTime.parse(req.getParameter("dateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a")),
+        service.add(
+                LocalDateTime.parse(req.getParameter("dateTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a")),
                 req.getParameter("desc"),
                 Integer.parseInt(req.getParameter("calories")));
         req.setAttribute("mealToList", service.getMealToList());

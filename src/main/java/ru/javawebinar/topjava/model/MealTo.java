@@ -7,7 +7,7 @@ public class MealTo {
     private final LocalDateTime dateTime;
     private final String description;
     private final int calories;
-    private final int id;
+    private final AtomicInteger id;
     private static AtomicInteger lastId = new AtomicInteger(0);
 
 //    private final AtomicBoolean excess;      // filteredByAtomic (or any ref type, e.g. boolean[1])
@@ -15,16 +15,16 @@ public class MealTo {
 //    private final Supplier<Boolean> excess;  // filteredByClosure
     private boolean excess;
 
-    public MealTo(LocalDateTime dateTime, String description, int calories, boolean excess) {
+    public MealTo(LocalDateTime dateTime, String description, int calories, AtomicInteger id, boolean excess) {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
+        this.id = id;
         this.excess = excess;
-        this.id = lastId.incrementAndGet();
     }
 
     public int getId() {
-        return id;
+        return id.get();
     }
 
     //    for filteredByClosure
@@ -42,10 +42,6 @@ public class MealTo {
 
     public int getCalories() {
         return calories;
-    }
-
-    public static AtomicInteger getLastId() {
-        return lastId;
     }
 
     public boolean isExcess() {

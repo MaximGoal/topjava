@@ -6,14 +6,14 @@ public class UserMeal {
     private final LocalDateTime dateTime;
     private final String description;
     private final int calories;
-    private final int id;
+    private final AtomicInteger id = new AtomicInteger(0);
     private static AtomicInteger lastId = new AtomicInteger(0);
 
     public UserMeal(LocalDateTime dateTime, String description, int calories) {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        this.id = lastId.incrementAndGet();
+        id.set(lastId.incrementAndGet());
     }
 
     public LocalDateTime getDateTime() {
@@ -29,7 +29,7 @@ public class UserMeal {
     }
 
     public int getId() {
-        return id;
+        return id.get();
     }
 
     @Override
