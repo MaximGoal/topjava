@@ -16,6 +16,13 @@ public class UserMeal {
         id.set(lastId.incrementAndGet());
     }
 
+    public Meal(int id, LocalDateTime dateTime, String description, int calories) {
+        this.dateTime = dateTime;
+        this.description = description;
+        this.calories = calories;
+        this.id.set(id);
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -31,6 +38,8 @@ public class UserMeal {
     public int getId() {
         return id.get();
     }
+
+
 
     @Override
     public String toString() {

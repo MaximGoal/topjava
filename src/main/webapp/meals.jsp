@@ -53,8 +53,9 @@
             </c:otherwise>
             </c:choose>
                     <td>
-                    <form action="/topjava/meals/edit?id=${item.getId()}" method="post">
+                    <form action="/topjava/meals/edit?id=${item.getId()}" method="get">
                         <input type="submit" name="button" value="Edit">
+                        <input type="hidden" name="id" value="${item.getId()}">
                     </form>
                     </td>
                     <td>

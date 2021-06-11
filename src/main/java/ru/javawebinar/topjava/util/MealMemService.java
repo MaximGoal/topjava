@@ -38,13 +38,13 @@ public class MealMemService implements MealService {
     }
 
     public void update (int id, Meal meal) {
-        Optional<Meal> removed = mealList.stream()
+        Optional<Meal> updated = mealList.stream()
                 .filter(m -> m.getDateTime().equals(mealList.get(id).getDateTime()))
                 .findFirst();
 
-        if (removed.isPresent()) {
-            mealList.remove(removed.get());
-            mealList.add(meal);
+        if (updated.isPresent()) {
+            mealList.remove(updated.get());
+            mealList.add(id, meal);
         }
     }
 
