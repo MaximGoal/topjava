@@ -1,15 +1,16 @@
 package ru.javawebinar.topjava.service;
 
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
-import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.repository.inmemory.InMemoryMealRepository;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
+
+// TODO: make only one request to repository (return repo.etc())
 
 public class MealService {
 
@@ -20,14 +21,13 @@ public class MealService {
     }
 
     public void delete(int id, int userId) {
-        if(repository.get(id).getUserId() != userId) return;
-
+        if(repository.get(id).getUserId() != userId) throw new NotFoundException("No valid user id " + id);
         checkNotFoundWithId(repository.delete(id), id);
     }
 
     public Meal get(int id, int userId) {
         Meal meal = checkNotFoundWithId(repository.get(id), id);
-        if (meal.getUserId() != userId) return null;
+        if (meal.getUserId() != userId) throw new NotFoundException("No valid user id " + id);
         return meal;
     }
 
@@ -38,7 +38,7 @@ public class MealService {
     }
 
     public void update(Meal meal, int userId) {
-        if (meal.getUserId() != userId) return;
+        if (meal.getUserId() != userId) throw new NotFoundException("No valid user id ");
         checkNotFoundWithId(repository.save(meal), meal.getId());
     }
 
