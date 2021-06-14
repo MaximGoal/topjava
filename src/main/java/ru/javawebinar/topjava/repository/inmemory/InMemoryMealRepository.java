@@ -36,24 +36,17 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public Meal save(Meal meal) {
 
-//        List<Meal> userMealList = userMealRepository.get(meal.getUserId());
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
             repository.put(meal.getId(), meal);
-//            userMealList.add(meal);
             return meal;
         }
-
-//        if (!isBelongToUser(meal.getId(), userId.get())) return null;
-
         // handle case: update, but not present in storage
-        Meal present = repository.computeIfPresent(meal.getId(), (id, oldMeal) -> meal);
-
-//        if (userMealList.get(meal.getId()) != null) {
+        //        if (userMealList.get(meal.getId()) != null) {
 //            userMealList.remove(meal);
 //        }
 //        userMealList.add(present);
-        return present;
+        return repository.computeIfPresent(meal.getId(), (id, oldMeal) -> meal);
     }
 
     @Override
@@ -65,7 +58,6 @@ public class InMemoryMealRepository implements MealRepository {
     public Meal get(int id) {
         return repository.get(id);
     }
-
 
     @Override
     public Collection<Meal> getAll() {

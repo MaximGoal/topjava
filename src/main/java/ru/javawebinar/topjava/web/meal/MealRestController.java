@@ -3,6 +3,8 @@ package ru.javawebinar.topjava.web.meal;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Set;
 
@@ -31,6 +33,13 @@ public class MealRestController {
         log.info("getAll");
         return MealsUtil.getTos(service.getAll(userId), MealsUtil.DEFAULT_CALORIES_PER_DAY);
     }
+    public Collection<MealTo> getAllFiltered(LocalTime startTime, LocalTime endTime) {
+        log.info("getAll");
+        return MealsUtil.getFilteredTos(service.getAll(userId),
+                MealsUtil.DEFAULT_CALORIES_PER_DAY,
+                startTime,
+                endTime);
+    }
 
     public MealTo get(int id) {
         log.info("get {}", id);
@@ -51,7 +60,9 @@ public class MealRestController {
                 o -> o.getUserId() == meal.getUserId())
                 .stream()
                 .filter(mealTo -> mealTo.getId() == meal.getId())
-                .findFirst().get().isExcess();
+                .findAny()
+                .get()
+                .isExcess();
         return new MealTo(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceed);
 //        return service.create(meal);
     }
