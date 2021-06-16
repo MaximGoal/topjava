@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.Meal;
@@ -24,18 +25,20 @@ public class MealServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(MealServlet.class);
     private int userId = SecurityUtil.authUserId();
 
-    private MealRepository repository;
+//    @Autowired
+//    private MealRepository repository;
+    @Autowired
     private MealService service;
 
     @Override
     public void init() {
 //        repository = new InMemoryMealRepository();
-        service = new MealService();
+//        service = new MealService();
 
 //        Spring init
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
-        MealRestController mealRestController = context.getBean(MealRestController.class);
-        mealRestController.delete(2);
+//        ApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+//        MealRestController mealRestController = context.getBean(MealRestController.class);
+//        mealRestController.delete(2);
     }
 
 

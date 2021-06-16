@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.repository.inmemory.InMemoryMealRepository;
@@ -12,8 +14,10 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 // TODO: make only one request to repository (return repo.etc())
 
+@Service
 public class MealService {
 
+    @Autowired
     private MealRepository repository = new InMemoryMealRepository();
 
     public Meal create(Meal meal) {

@@ -1,12 +1,13 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.to.MealTo;
@@ -22,9 +23,11 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 // TODO: 4.4. конвертацию в MealTo можно делать как в слое web, так и в service
 // TODO: transfer all userId checking into this Controller class
 
+@Controller
 public class MealRestController {
 
     private int userId = SecurityUtil.authUserId();
+    @Autowired
     private MealService service = new MealService();
     private static final Logger log = getLogger(MealRestController.class);
 
