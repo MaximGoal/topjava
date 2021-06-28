@@ -1,10 +1,12 @@
 package ru.javawebinar.topjava.repository.jpa;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -16,12 +18,19 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JpaMealRepository implements MealRepository {
 
+    UserRepository jpaUserRepository;
+
+    public JpaMealRepository(@Qualifier("jpaUserRepository") UserRepository jpaUserRepository) {
+        this.jpaUserRepository = jpaUserRepository;
+    }
+
     @PersistenceContext
     EntityManager em;
 
     @Override
     @Transactional
     public Meal save(Meal meal, int userId) {
+        meal.setUser(jpaUserRepository.get(userId));
         try {
             if (meal.isNew()) {
                 em.persist(meal);

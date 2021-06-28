@@ -38,7 +38,7 @@ public class Meal extends AbstractBaseEntity {
     private int calories;
 
     @ManyToOne(fetch = FetchType.EAGER)
-//    @NotNull
+    @NotNull
     private User user;
 
     public Meal() {
